@@ -1,11 +1,24 @@
 import React from 'react';
+import {useState,useEffect} from 'react';
 import { Carousel } from 'react-bootstrap';
 import slideOne from '../../Images/slide1.jpg'
 import slideTwo from '../../Images/slide2.jpg'
 import slideThree from '../../Images/slide3.jpg'
+import Body from '../Body/Body';
+
+
 import './Home.css'
 
 const Home = () => {
+    // services data state
+   const [services, setServices] = useState([]);
+    //data load
+    useEffect(() => {
+        fetch('./gymServices.json')
+        .then(res => res.json())
+        .then(data => setServices(data))
+ 
+        },[])
     return (
         <div>
          <Carousel>
@@ -36,6 +49,19 @@ const Home = () => {
                     
                 </Carousel.Item>
             </Carousel>
+            <div className="mt-3">
+                <h1>Services We Offer!</h1>
+            </div>
+            <hr />
+            <div className="row row-cols-1 row-cols-lg-3 g-4 my-5 mx-4">
+               {
+                   services.map(service =><Body
+                    key = {service.key}
+                    service = {service}></Body>)
+               }
+               
+            </div>
+  
         </div>
     );
 };
