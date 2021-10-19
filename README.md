@@ -1,7 +1,7 @@
 # The Kardio Klub.
 
 
-My project link: [Study Buddies](https://kardioklub-8494e.web.app).
+My project link: [The Kardio Klub.](https://kardioklub-8494e.web.app).
 
 ## About my project
 <ol>
