@@ -4,3 +4,8 @@
     font-family: 'Noto Sans Mono', monospace;
     color: white;
 }
+
+.text-color{
+    color:rgb(161, 160, 160);
+    margin-left: 15px;
+}

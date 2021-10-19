@@ -1,8 +1,14 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Header.css';
 import { Container, Nav, Navbar} from 'react-bootstrap';
+import useHooks from '../../Hooks/useHooks';
+
+
 const Header = () => {
+    
+    const { user, logOut } = useHooks();
+
     return (
         <div >
           <Navbar className="py-4" collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -11,16 +17,18 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link to='/home' href="#features">Home</Nav.Link>
-                    <Nav.Link to='services' href="#pricing">Services</Nav.Link>
-                    <Nav.Link to='/about'href="#pricing">Why Kardio Klub?</Nav.Link>
-                    <Nav.Link to='/store' href="#pricing">Kardio Klub Store</Nav.Link>
+                    <NavLink className="text-decoration-none text-color" to='/home' href="#features">Home</NavLink>
+                    <NavLink className="text-decoration-none text-color" to='/about'href="#pricing">Why Kardio Klub?</NavLink>
+                    
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#deets">More deets</Nav.Link>
-                    <Nav.Link eventKey={2} href="#memes">
-                    Dank memes
-                    </Nav.Link>
+                <span className="text-white me-2">{user.displayName}</span>
+                {
+                    user.email ? 
+                    <button onClick={logOut}>Sign Out</button>
+                    :
+                    <NavLink className="text-decoration-none text-color" to='/login' href="#deets">Login</NavLink>  
+                }
                 </Nav>
                 </Navbar.Collapse>
                     </Container>
