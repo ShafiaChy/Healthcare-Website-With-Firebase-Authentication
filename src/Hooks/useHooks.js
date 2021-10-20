@@ -1,20 +1,29 @@
 import { useState,useEffect } from "react";
-import {  getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
+import {  getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,  signOut } from "firebase/auth";
 import initializeAuthentication from "../Firebase/firebase.init";
 
 initializeAuthentication();
 
 const useHooks = () => {
+    const [isLoading, setIsLoading] = useState(true)
     const [user, setUser] = useState({});
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
 
     const signInWithGoogle = () => {
-        signInWithPopup(auth, provider)
-        .then(result => {
+        return signInWithPopup(auth, provider);
+        
+    //     .then(result => {
             
-            console.log(result.user);
-      })
+    // //         console.log(result.user);
+            
+    //  })
+    //   .catch(error=>{
+    //       console.log(error)
+    //   }) 
+     
+
+      
     }
 
     const logOut = () => {
@@ -22,18 +31,29 @@ const useHooks = () => {
             .then(() => {
                 setUser({});
             })
+            .finally(() => { setIsLoading(false) });
     }
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-               setUser(user); 
-            } 
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/firebase.User
+              setUser(user);
+              // ...
+            } else {
+              // User is signed out
+              setUser({});
+            }
+            setIsLoading(false);
           });
-    }, [])
+          return () => unsubscribe;
+    }, [auth])
 
     return {
         user,
+        auth,
+        isLoading,
         signInWithGoogle,
         logOut
 

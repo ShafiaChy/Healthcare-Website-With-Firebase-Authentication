@@ -9,12 +9,14 @@ import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import Footer from './Components/Footer/Footer';
 import About from './Components/About/About';
 import NotFound from './Components/NotFound/NotFound';
-//import AuthProvider from './Context/AuthProvider';
+import AuthProvider from './Context/AuthProvider';
+import Benefits from './Components/Benefits/Benefits';
+import Workout from './Components/Workout/Workout';
 
 function App() {
   return (
     <div >
-      {/* <AuthProvider>  */}
+       <AuthProvider> 
      <Router>
       <Header></Header>
       <Switch>
@@ -24,12 +26,18 @@ function App() {
         <Route exact path="/home">
           <Home></Home>
         </Route>
-        <PrivateRoute exact path="/details">
+        <PrivateRoute exact path="/details/:detailId">
           <Details></Details>
-        </PrivateRoute >
+        </PrivateRoute>
        <Route exact path="/about">
           <About></About>
         </Route>
+        <PrivateRoute exact path="/benefit">
+          <Benefits></Benefits>
+        </PrivateRoute>
+        <PrivateRoute exact path="/workout">
+          <Workout></Workout>
+        </PrivateRoute>
          <Route exact path="/login">
          <Login></Login>
         </Route>
@@ -41,7 +49,7 @@ function App() {
         </Route> 
       </Switch>
     </Router> 
-    {/* </AuthProvider>  */}
+     </AuthProvider>
     <Footer></Footer>
       
     </div>

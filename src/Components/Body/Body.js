@@ -1,12 +1,17 @@
 import React from 'react';
+
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+
 import './Body.css';
 const Body = (props) => {
   //destructuring
-        const {image, name, description} = props.service;
+        const {key,image, name, description} = props.service;
+        
+
         const history = useHistory();
         const handleDetails = () => {
-
+            
             history.push('/details');
         }
     // displaying service information
@@ -21,8 +26,11 @@ const Body = (props) => {
                 <p className="card-text bg-white">{description}</p>
             </div>
            <div className="mb-3 mx-auto">
-            <button onClick={handleDetails} className="px-4 py-2 rounded bg-dark text-white" >Details</button>
+            <Link to={`/details/${key}`}>
+            <button onClick={handleDetails} className="px-4 py-2 rounded bg-dark text-white">Details</button>
+            </Link>
            </div>
+           
          </div>
         
        </div> 

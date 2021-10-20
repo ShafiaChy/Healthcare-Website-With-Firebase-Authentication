@@ -1,0 +1,9 @@
+.banner{
+    background-image: url('../../Images/benefit.jpg');
+    background-repeat: no-repeat;
+    height: 700px;
+}
+
+.paragraph{
+    text-shadow: 2px 2px black;
+}
