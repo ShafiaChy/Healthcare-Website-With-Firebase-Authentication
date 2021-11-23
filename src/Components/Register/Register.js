@@ -1,5 +1,4 @@
 import React from 'react';
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import useAuth from '../../Hooks/useAuth';
@@ -7,13 +6,19 @@ import { useHistory } from 'react-router';
 
 
 
+
+
 const Register = () => {
     const history = useHistory();
     const [email, setEmail] =  useState('');
     const [password, setPassword] =  useState('');
-    
+    const [name, setName] =  useState('');
     const [error, setError] =  useState('');
-    const {auth,signInWithGoogle} = useAuth();
+    const {signInWithGoogle,createAccount} = useAuth();
+
+    const handleNameChange = e => {
+        setName(e.target.value);
+    }
   
     const handleEmailChange = e => {
         setEmail(e.target.value);
@@ -31,11 +36,16 @@ const Register = () => {
         if(!/(?=.*[A-Z].*[A-Z])/.test(password)){
             setError('Password should have atleast two uppercase')
         }
-        createUserWithEmailAndPassword(auth,email,password)
+        createAccount(name,email,password) 
+        
+            .then(result => {
+                
+                history.push('/home');
+            })
             .catch(error =>{
                 setError(error.message)
             })
-            history.push('/home');
+        
             
     }
 
@@ -44,6 +54,12 @@ const Register = () => {
              <h1 className="mt-5 d-flex justify-content-center">Heya New Member!</h1>
             <p className="d-flex justify-content-center">Sign up to continue</p>    
              <form onSubmit={handleRegistration}>
+             <div className="row mb-3 ">
+                
+                <div className="col-sm-10 mx-auto">
+                    <input onBlur={handleNameChange} type="text" placeholder="Name" className="form-control mx-auto w-50" id="inputName" required/>
+                </div>
+            </div>
             <div className="row mb-3 ">
                 
                 <div className="col-sm-10 mx-auto">

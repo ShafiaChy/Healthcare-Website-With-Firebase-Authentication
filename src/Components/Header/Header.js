@@ -25,7 +25,7 @@ const Header = () => {
                 </Nav>
                 
                 <Nav>
-                <span className="text-white me-2 mb-2 mt-2">{user.displayName || user.email}</span>
+                <span className="text-white me-2 mb-2 mt-2">{user.displayName}</span>
                 {
                     user.email ? 
                     <button className="rounded py-2 px-3  py-sm-2 px-sm-3" onClick={logOut}>Sign Out</button>

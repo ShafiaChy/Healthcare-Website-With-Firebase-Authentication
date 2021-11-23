@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import {  getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,  signOut } from "firebase/auth";
+import {  getAuth, signInWithPopup,signInWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,createUserWithEmailAndPassword,signOut } from "firebase/auth";
 import initializeAuthentication from "../Firebase/firebase.init";
 
 initializeAuthentication();
@@ -13,17 +13,19 @@ const useHooks = () => {
     const signInWithGoogle = () => {
         return signInWithPopup(auth, provider);
         
-    //     .then(result => {
-            
-    // //         console.log(result.user);
-            
-    //  })
-    //   .catch(error=>{
-    //       console.log(error)
-    //   }) 
-     
+ }
 
+   const loginWithEmailAndPassword=(email,password)=>{
+    //    console.log(email,password)
+   
+      return signInWithEmailAndPassword(auth,email,password);
+   }
+
+   const createAccount = (name,email,password) => {
+   
       
+        return createUserWithEmailAndPassword(auth,email,password)
+     
     }
 
     const logOut = () => {
@@ -54,7 +56,9 @@ const useHooks = () => {
         user,
         auth,
         isLoading,
+        createAccount,
         signInWithGoogle,
+        loginWithEmailAndPassword,
         logOut
 
     }

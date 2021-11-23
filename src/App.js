@@ -14,6 +14,7 @@ import Benefits from './Components/Benefits/Benefits';
 import Workout from './Components/Workout/Workout';
 
 function App() {
+   
   return (
     <div >
        <AuthProvider> 

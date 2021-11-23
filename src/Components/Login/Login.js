@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import useAuth from '../../Hooks/useAuth';
 import './Login.css';
@@ -11,7 +10,7 @@ const Login = () => {
     const [email, setEmail] =  useState('');
     const [password, setPassword] =  useState('');
     const [error, setError] =  useState('');
-    const {auth, signInWithGoogle } = useAuth();
+    const { signInWithGoogle, loginWithEmailAndPassword } = useAuth();//useHooks 
 
     const location = useLocation();
     const history = useHistory();
@@ -25,20 +24,38 @@ const Login = () => {
                 history.push(redirect_uri);
             })
     }
+
+
+
     const handleEmailChange = e => {
         setEmail(e.target.value);
     }
     const handlePasswordChange = e => {
-        setPassword(e.target.value);
-    }
-    const loginUsingEmailAndPassword = e => {
+          const password=e.target.value;
+          if(password<6){
+              setError("must be at least 6")
+              return
+          }
+          setPassword(password)
+        }
+       
+    const handleEmailAndPasswordSignIn = e => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
+        // console.log(e)
+        loginWithEmailAndPassword(email,password)
         .then(result => {
+            // console.log(result)
             history.push(redirect_uri);
         })
         .catch(error =>{
-            setError(error.message)
+         
+        if(error.code === 'auth/wrong-password'){
+            setError('Wrong password')
+        }
+        if(error.code === 'auth/user-not-found'){
+            setError('Wrong email address')
+        }
+         
         })
         
     }
@@ -47,7 +64,7 @@ const Login = () => {
         <div className="pb-5">
             <h1 className="mt-5 d-flex justify-content-center">Welcome Back!</h1>
             <p className="d-flex justify-content-center">Sign in to continue</p>           
-            <form onSubmit={loginUsingEmailAndPassword}>
+            <form onSubmit={handleEmailAndPasswordSignIn}>
             <div className="row mb-3 ">
                 
                 <div className="col-sm-10 mx-auto">
