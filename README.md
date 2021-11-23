@@ -6,7 +6,7 @@ My project link: [The Kardio Klub](https://kardioklub-8494e.web.app/).
 ## About my project
 <ol>
     <li>The Kardio Klub is a gym website.</li>
-    <li>The website is made with <b>ReactJS</b>, <b>Bootstrap</b> and used <b>Firbase</b> for authentication and hosting.<li>
+    <li>The website is made with <b>ReactJS</b>, <b>Bootstrap</b> and used <b>Firbase</b> for authentication and hosting.</li>
     <li>The website is responsive.</li>
     <li>People can view the services the website offers on Homepage and can subscribe to newsletter.</li>
     <li>There are registration and login pages.</li>
